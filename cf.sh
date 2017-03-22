@@ -30,6 +30,7 @@ pushd cf-release
   ./scripts/generate-blobstore-certs
   ./scripts/generate-loggregator-certs cf-diego-certs/cf-diego-ca.crt cf-diego-certs/cf-diego-ca.key
   ./scripts/generate-statsd-injector-certs loggregator-certs/loggregator-ca.crt loggregator-certs/loggregator-ca.key
+  ./scripts/generate-hm9000-certs
 popd
 
 DIRECTOR_UUID='6a03f58f-91a2-4942-95b0-34abf99a3480' #changeme
@@ -67,6 +68,11 @@ LOGGREGATOR_SYSLOGDRAINBINDER_KEY=$(cat cf-release/loggregator-certs/syslogdrain
 LOGGREGATOR_STATSDINJECTOR_CERT=$(cat cf-release/statsd-injector-certs/statsdinjector.crt)
 LOGGREGATOR_STATSDINJECTOR_KEY=$(cat cf-release/statsd-injector-certs/statsdinjector.key)
 LOGGREGATOR_ENDPOINT_SHARED_SECRET=VDwqjbfDJpk3Ttx15U7v8Z6TrOtuPg05
+HM9000_SERVER_KEY=$(cat cf-release/hm9000-certs/hm9000_server.key)
+HM9000_SERVER_CERT=$(cat cf-release/hm9000-certs/hm9000_server.crt)
+HM9000_CLIENT_KEY=$(cat cf-release/hm9000-certs/hm9000_client.key)
+HM9000_CLIENT_CERT=$(cat cf-release/hm9000-certs/hm9000_client.crt)
+HM9000_CA_CERT=$(cat cf-release/hm9000-certs/hm9000_ca.crt)
 
 cat > cf-stub.yml <<EOF
 ---
@@ -251,11 +257,11 @@ properties:
     - name: diego
       password: DIEGODB_PASSWORD
   hm9000:
-    server_key: HM9000_SERVER_KEY
-    server_cert: HM9000_SERVER_CERT
-    client_key: HM9000_CLIENT_KEY
-    client_cert: HM9000_CLIENT_CERT
-    ca_cert: HM9000_CA_CERT
+    server_key: "$HM9000_SERVER_KEY"
+    server_cert: "$HM9000_SERVER_CERT"
+    client_key: "$HM9000_CLIENT_KEY"
+    client_cert: "$HM9000_CLIENT_CERT"
+    ca_cert: "$HM9000_CA_CERT"
 
 jobs:
   - name: ha_proxy_z1
