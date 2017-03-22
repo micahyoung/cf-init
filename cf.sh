@@ -65,7 +65,7 @@ NATS_USER=nats
 NATS_PASSWORD=nats-password
 ADMIN_SECRET=admin
 ADMIN_PASSWORD=admin
-LOGGREGATOR_CA_CERT=$(cat cf-release/loggregator-certs/loggregator-ca.crt)
+LOGGREGATOR_CA_CERT=$(base64 cf-release/loggregator-certs/loggregator-ca.crt)
 LOGGREGATOR_DOPPLER_CERT=$(cat cf-release/loggregator-certs/doppler.crt)
 LOGGREGATOR_DOPPLER_KEY=$(cat cf-release/loggregator-certs/doppler.key)
 LOGGREGATOR_TRAFFICCONTROLLER_CERT=$(cat cf-release/loggregator-certs/trafficcontroller.crt)
@@ -210,7 +210,7 @@ properties:
     server_key: '$ETCD_SERVER_KEY'
   loggregator:
     tls:
-      ca_cert: '$LOGGREGATOR_CA_CERT'
+      ca_cert: !!binary $LOGGREGATOR_CA_CERT
       doppler:
         cert: '$LOGGREGATOR_DOPPLER_CERT'
         key: '$LOGGREGATOR_DOPPLER_KEY'
