@@ -23,12 +23,12 @@ if ! [ -d cf-release ]; then
   git clone https://github.com/cloudfoundry/cf-release.git
 fi
 
-pushd cf-release
-   git checkout "v$cf_version"
-   git clean -fdx
-  ./scripts/generate-cf-diego-certs
-  ./scripts/generate-blobstore-certs
-popd
+#pushd cf-release
+#   git checkout "v$cf_version"
+#   git clean -fdx
+#  ./scripts/generate-cf-diego-certs
+#  ./scripts/generate-blobstore-certs
+#popd
 
 DIRECTOR_UUID='ffcb64af-5e97-44a7-80ee-0aafa6f1fc50' #changeme
 NET_ID='09172e34-690a-423b-a26b-5b95ab42cffc' #changeme
