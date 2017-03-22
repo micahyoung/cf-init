@@ -31,7 +31,7 @@ pushd cf-release
 popd
 
 DIRECTOR_UUID='ffcb64af-5e97-44a7-80ee-0aafa6f1fc50' #changeme
-NET_ID='2c27151b-4a2b-4aa6-a9b4-be5f2b274ea7' #changeme
+NET_ID='09172e34-690a-423b-a26b-5b95ab42cffc' #changeme
 ENVIRONMENT=cf
 FLOATING_IP=172.18.161.254
 SYSTEM_DOMAIN=system.cf.young.io
