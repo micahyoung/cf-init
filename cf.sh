@@ -30,7 +30,7 @@ fi
 #  ./scripts/generate-blobstore-certs
 #popd
 
-DIRECTOR_UUID='ffcb64af-5e97-44a7-80ee-0aafa6f1fc50' #changeme
+DIRECTOR_UUID='6a03f58f-91a2-4942-95b0-34abf99a3480' #changeme
 NET_ID='09172e34-690a-423b-a26b-5b95ab42cffc' #changeme
 ENVIRONMENT=cf
 FLOATING_IP=172.18.161.254
@@ -52,6 +52,7 @@ BLOBSTORE_PRIVATE_KEY=$(cat cf-release/blobstore-certs/server.key)
 BLOBSTORE_CA_CERT=$(cat cf-release/blobstore-certs/server-ca.crt) 
 NATS_USER=nats
 NATS_PASSWORD=nats-password
+ADMIN_SECRET=admin
 
 cat > cf-stub.yml <<EOF
 ---
@@ -180,7 +181,7 @@ properties:
       password: ROUTER_PASSWORD
   uaa:
     admin:
-      client_secret: ADMIN_SECRET
+      client_secret: $ADMIN_SECRET
     ca_cert: UAA_CA_CERT
     cc:
       client_secret: CC_CLIENT_SECRET

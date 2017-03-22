@@ -4,7 +4,7 @@ compilation:
   network: cf1
   reuse_compilation_vms: true
   workers: 3
-director_uuid: ffcb64af-5e97-44a7-80ee-0aafa6f1fc50
+director_uuid: 6a03f58f-91a2-4942-95b0-34abf99a3480
 jobs:
 - default_networks:
   - name: cf1
@@ -1826,7 +1826,7 @@ properties:
     zone: null
   uaa:
     admin:
-      client_secret: ADMIN_SECRET
+      client_secret: admin
     authentication:
       policy:
         countFailuresWithinSeconds: null
