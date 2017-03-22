@@ -13,7 +13,7 @@ jobs:
   networks:
   - name: cf1
     static_ips:
-    - 10.10.0.137
+    - 10.0.0.137
   persistent_disk: 1024
   properties:
     consul:
@@ -64,7 +64,7 @@ jobs:
   networks:
   - name: cf1
     static_ips:
-    - 10.10.0.127
+    - 10.0.0.127
   properties:
     metron_agent:
       zone: z1
@@ -115,7 +115,7 @@ jobs:
   networks:
   - name: cf1
     static_ips:
-    - 10.10.0.133
+    - 10.0.0.133
   persistent_disk: 10024
   properties:
     consul:
@@ -277,7 +277,7 @@ jobs:
   networks:
   - name: cf1
     static_ips:
-    - 10.10.0.129
+    - 10.0.0.129
   persistent_disk: 4096
   properties:
     metron_agent:
@@ -324,7 +324,7 @@ jobs:
     uaa:
       proxy:
         servers:
-        - 10.10.0.130
+        - 10.0.0.130
   resource_pool: medium_z1
   templates:
   - consumes:
@@ -373,7 +373,7 @@ jobs:
     uaa:
       proxy:
         servers:
-        - 10.10.0.130
+        - 10.0.0.130
   resource_pool: medium_z2
   templates:
   - consumes:
@@ -408,8 +408,8 @@ jobs:
     nfs_server:
       address: null
       allow_from_entries:
-      - 10.10.0.0/24
-      - 10.10.0.0/24
+      - 10.0.0.0/24
+      - 10.0.0.0/24
       share: null
     route_registrar:
       routes:
@@ -484,8 +484,8 @@ jobs:
     nfs_server:
       address: null
       allow_from_entries:
-      - 10.10.0.0/24
-      - 10.10.0.0/24
+      - 10.0.0.0/24
+      - 10.0.0.0/24
       share: null
     route_registrar:
       routes:
@@ -571,8 +571,8 @@ jobs:
     nfs_server:
       address: null
       allow_from_entries:
-      - 10.10.0.0/24
-      - 10.10.0.0/24
+      - 10.0.0.0/24
+      - 10.0.0.0/24
       share: null
   resource_pool: small_z1
   templates:
@@ -600,8 +600,8 @@ jobs:
     nfs_server:
       address: null
       allow_from_entries:
-      - 10.10.0.0/24
-      - 10.10.0.0/24
+      - 10.0.0.0/24
+      - 10.0.0.0/24
       share: null
   resource_pool: small_z2
   templates:
@@ -959,7 +959,7 @@ jobs:
   networks:
   - name: cf1
     static_ips:
-    - 10.10.0.130
+    - 10.0.0.130
   properties:
     consul:
       agent:
@@ -1020,7 +1020,7 @@ jobs:
     - gateway
     name: cf1
     static_ips:
-    - 10.10.0.125
+    - 10.0.0.125
   properties:
     ha_proxy:
       ssl_pem: |+
@@ -1034,7 +1034,7 @@ jobs:
       zone: z1
     router:
       servers:
-      - 10.10.0.130
+      - 10.0.0.130
   resource_pool: router_z1
   templates:
   - consumes:
@@ -1084,13 +1084,13 @@ networks:
       - cf
     dns:
     - 8.8.8.8
-    gateway: 10.10.0.1
-    range: 10.10.0.0/24
+    gateway: 10.0.0.1
+    range: 10.0.0.0/24
     reserved:
-    - 10.10.0.2 - 10.10.0.100
-    - 10.10.0.200 - 10.10.0.254
+    - 10.0.0.2 - 10.0.0.100
+    - 10.0.0.200 - 10.0.0.254
     static:
-    - 10.10.0.125 - 10.10.0.175
+    - 10.0.0.125 - 10.0.0.175
   type: manual
 - name: cf2
   subnets:
@@ -1100,13 +1100,13 @@ networks:
       - cf
     dns:
     - 8.8.8.8
-    gateway: 10.10.0.1
-    range: 10.10.0.0/24
+    gateway: 10.0.0.1
+    range: 10.0.0.0/24
     reserved:
-    - 10.10.0.2 - 10.10.0.100
-    - 10.10.0.200 - 10.10.0.254
+    - 10.0.0.2 - 10.0.0.100
+    - 10.0.0.200 - 10.0.0.254
     static:
-    - 10.10.0.125 - 10.10.0.175
+    - 10.0.0.125 - 10.0.0.175
   type: manual
 properties:
   acceptance_tests: null
@@ -1532,7 +1532,7 @@ properties:
       public_endpoint: http://blobstore.system.cf.young.io
       username: blobstore
   ccdb:
-    address: 10.10.0.129
+    address: 10.0.0.129
     databases:
     - name: ccdb
       tag: cc
@@ -1549,7 +1549,7 @@ properties:
       log_level: null
       servers:
         lan:
-        - 10.10.0.137
+        - 10.0.0.137
     agent_cert: CONSUL_AGENT_CERT
     agent_key: CONSUL_AGENT_KEY
     ca_cert: CONSUL_CA_CERT
@@ -1560,7 +1560,7 @@ properties:
     server_key: CONSUL_SERVER_KEY
   databases:
     additional_config: null
-    address: 10.10.0.129
+    address: 10.0.0.129
     collect_statement_statistics: null
     databases:
     - citext: true
@@ -1648,7 +1648,7 @@ properties:
     - instances: 0
       name: etcd_z2
     machines:
-    - 10.10.0.133
+    - 10.0.0.133
     peer_ca_cert: ETCD_PEER_CA_CERT
     peer_cert: ETCD_PEER_CERT
     peer_key: ETC_PEER_KEY
@@ -1753,7 +1753,7 @@ properties:
   nats:
     debug: false
     machines:
-    - 10.10.0.127
+    - 10.0.0.127
     monitor_port: 0
     password: NATS_PASSWORD
     port: 4222
@@ -1763,8 +1763,8 @@ properties:
   nfs_server:
     address: null
     allow_from_entries:
-    - 10.10.0.0/24
-    - 10.10.0.0/24
+    - 10.0.0.0/24
+    - 10.0.0.0/24
     share: null
   request_timeout_in_seconds: 900
   router:
@@ -1946,7 +1946,7 @@ properties:
         hostnames:
         - uaa.service.cf.internal
   uaadb:
-    address: 10.10.0.129
+    address: 10.0.0.129
     databases:
     - name: uaadb
       tag: uaa
