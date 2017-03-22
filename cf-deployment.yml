@@ -1755,11 +1755,11 @@ properties:
     machines:
     - 10.0.0.127
     monitor_port: 0
-    password: NATS_PASSWORD
+    password: nats-password
     port: 4222
     prof_port: 0
     trace: false
-    user: NATS_USER
+    user: nats
   nfs_server:
     address: null
     allow_from_entries:

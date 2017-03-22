@@ -50,6 +50,8 @@ BLOBSTORE_SECRET=blobstore-secret
 BLOBSTORE_TLS_CERT=$(cat cf-release/blobstore-certs/server.crt)
 BLOBSTORE_PRIVATE_KEY=$(cat cf-release/blobstore-certs/server.key)
 BLOBSTORE_CA_CERT=$(cat cf-release/blobstore-certs/server-ca.crt) 
+NATS_USER=nats
+NATS_PASSWORD=nats-password
 
 cat > cf-stub.yml <<EOF
 ---
@@ -170,8 +172,8 @@ properties:
       serviceProviderKey: SERVICE_PROVIDER_PRIVATE_KEY
       serviceProviderCertificate: SERVICE_PROVIDER_PRIVATE_CERT
   nats:
-    user: NATS_USER
-    password: NATS_PASSWORD
+    user: $NATS_USER
+    password: $NATS_PASSWORD
   router:
     status:
       user: ROUTER_USER
