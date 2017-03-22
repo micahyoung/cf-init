@@ -23,12 +23,14 @@ if ! [ -d cf-release ]; then
   git clone https://github.com/cloudfoundry/cf-release.git
 fi
 
-#pushd cf-release
-#   git checkout "v$cf_version"
-#   git clean -fdx
-#  ./scripts/generate-cf-diego-certs
-#  ./scripts/generate-blobstore-certs
-#popd
+pushd cf-release
+  git checkout "v$cf_version"
+  git clean -fdx
+  ./scripts/generate-cf-diego-certs
+  ./scripts/generate-blobstore-certs
+  ./scripts/generate-loggregator-certs cf-diego-certs/cf-diego-ca.crt cf-diego-certs/cf-diego-ca.key
+  ./scripts/generate-statsd-injector-certs loggregator-certs/loggregator-ca.crt loggregator-certs/loggregator-ca.key
+popd
 
 DIRECTOR_UUID='6a03f58f-91a2-4942-95b0-34abf99a3480' #changeme
 NET_ID='09172e34-690a-423b-a26b-5b95ab42cffc' #changeme
@@ -53,6 +55,18 @@ BLOBSTORE_CA_CERT=$(cat cf-release/blobstore-certs/server-ca.crt)
 NATS_USER=nats
 NATS_PASSWORD=nats-password
 ADMIN_SECRET=admin
+LOGGREGATOR_CA_CERT=$(cat cf-release/loggregator-certs/loggregator-ca.crt)
+LOGGREGATOR_DOPPLER_CERT=$(cat cf-release/loggregator-certs/doppler.crt)
+LOGGREGATOR_DOPPLER_KEY=$(cat cf-release/loggregator-certs/doppler.key)
+LOGGREGATOR_TRAFFICCONTROLLER_CERT=$(cat cf-release/loggregator-certs/trafficcontroller.crt)
+LOGGREGATOR_TRAFFICCONTROLLER_KEY=$(cat cf-release/loggregator-certs/trafficcontroller.key)
+LOGGREGATOR_METRON_CERT=$(cat cf-release/loggregator-certs/metron.crt)
+LOGGREGATOR_METRON_KEY=$(cat cf-release/loggregator-certs/metron.key)
+LOGGREGATOR_SYSLOGDRAINBINDER_CERT=$(cat cf-release/loggregator-certs/syslogdrainbinder.crt)
+LOGGREGATOR_SYSLOGDRAINBINDER_KEY=$(cat cf-release/loggregator-certs/syslogdrainbinder.key)
+LOGGREGATOR_STATSDINJECTOR_CERT=$(cat cf-release/statsd-injector-certs/statsdinjector.crt)
+LOGGREGATOR_STATSDINJECTOR_KEY=$(cat cf-release/statsd-injector-certs/statsdinjector.key)
+LOGGREGATOR_ENDPOINT_SHARED_SECRET=VDwqjbfDJpk3Ttx15U7v8Z6TrOtuPg05
 
 cat > cf-stub.yml <<EOF
 ---
@@ -149,24 +163,24 @@ properties:
     server_key: ETCD_SERVER_KEY
   loggregator:
     tls:
-      ca_cert: LOGGREGATOR_CA_CERT
+      ca_cert: "$LOGGREGATOR_CA_CERT"
       doppler:
-        cert: LOGGREGATOR_DOPPLER_CERT
-        key: LOGGREGATOR_DOPPLER_KEY
+        cert: "$LOGGREGATOR_DOPPLER_CERT"
+        key: "$LOGGREGATOR_DOPPLER_KEY"
       trafficcontroller:
-        cert: LOGGREGATOR_TRAFFICCONTROLLER_CERT
-        key: LOGGREGATOR_TRAFFICCONTROLLER_KEY
+        cert: "$LOGGREGATOR_TRAFFICCONTROLLER_CERT"
+        key: "$LOGGREGATOR_TRAFFICCONTROLLER_KEY"
       metron:
-        cert: LOGGREGATOR_METRON_CERT
-        key: LOGGREGATOR_METRON_KEY
+        cert: "$LOGGREGATOR_METRON_CERT"
+        key: "$LOGGREGATOR_METRON_KEY"
       syslogdrainbinder:
-        cert: LOGGREGATOR_SYSLOGDRAINBINDER_CERT
-        key: LOGGREGATOR_SYSLOGDRAINBINDER_KEY
+        cert: "$LOGGREGATOR_SYSLOGDRAINBINDER_CERT"
+        key: "$LOGGREGATOR_SYSLOGDRAINBINDER_KEY"
       statsd_injector:
-        cert: LOGGREGATOR_STATSDINJECTOR_CERT
-        key: LOGGREGATOR_STATSDINJECTOR_KEY
+        cert: "$LOGGREGATOR_STATSDINJECTOR_CERT"
+        key: "$LOGGREGATOR_STATSDINJECTOR_KEY"
   loggregator_endpoint:
-    shared_secret: LOGGREGATOR_ENDPOINT_SHARED_SECRET
+    shared_secret: $LOGGREGATOR_ENDPOINT_SHARED_SECRET
   login:
     protocol: http
     saml:
