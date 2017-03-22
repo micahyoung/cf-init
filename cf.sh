@@ -34,6 +34,7 @@ pushd cf-release
   ./scripts/generate-statsd-injector-certs loggregator-certs/loggregator-ca.crt loggregator-certs/loggregator-ca.key
   ./scripts/generate-hm9000-certs
   ./scripts/generate-consul-certs
+  ./scripts/generate-etcd-certs
 popd
 
 DIRECTOR_UUID='6a03f58f-91a2-4942-95b0-34abf99a3480' #changeme
@@ -81,6 +82,14 @@ CONSUL_SERVER_CERT=$(cat cf-release/consul-certs/server.crt)
 CONSUL_SERVER_KEY=$(cat cf-release/consul-certs/server.key)
 CONSUL_AGENT_CERT=$(cat cf-release/consul-certs/agent.crt)
 CONSUL_AGENT_KEY=$(cat cf-release/consul-certs/agent.key)
+ETCD_CA_CERT=$(cat cf-release/etcd-certs/etcd-ca.crt)
+ETCD_CLIENT_CERT=$(cat cf-release/etcd-certs/client.crt)
+ETCD_CLIENT_KEY=$(cat cf-release/etcd-certs/client.key)
+ETCD_PEER_CA_CERT=$(cat cf-release/etcd-certs/peer-ca.crt)
+ETCD_PEER_CERT=$(cat cf-release/etcd-certs/peer.crt)
+ETCD_PEER_KEY=$(cat cf-release/etcd-certs/peer.key)
+ETCD_SERVER_CERT=$(cat cf-release/etcd-certs/server.crt)
+ETCD_SERVER_KEY=$(cat cf-release/etcd-certs/server.key)
 
 cat > cf-stub.yml <<EOF
 ---
@@ -167,14 +176,14 @@ properties:
     memory_mb: 1024
   etcd:
     require_ssl: true
-    ca_cert: ETCD_CA_CERT
-    client_cert: ETCD_CLIENT_CERT
-    client_key: ETCD_CLIENT_KEY
-    peer_ca_cert: ETCD_PEER_CA_CERT
-    peer_cert: ETCD_PEER_CERT
-    peer_key: ETC_PEER_KEY
-    server_cert: ETCD_SERVER_CERT
-    server_key: ETCD_SERVER_KEY
+    ca_cert: '$ETCD_CA_CERT'
+    client_cert: '$ETCD_CLIENT_CERT'
+    client_key: '$ETCD_CLIENT_KEY'
+    peer_ca_cert: '$ETCD_PEER_CA_CERT'
+    peer_cert: '$ETCD_PEER_CERT'
+    peer_key: '$ETC_PEER_KEY'
+    server_cert: '$ETCD_SERVER_CERT'
+    server_key: '$ETCD_SERVER_KEY'
   loggregator:
     tls:
       ca_cert: '$LOGGREGATOR_CA_CERT'
