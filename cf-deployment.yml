@@ -1,6 +1,6 @@
 compilation:
   cloud_properties:
-    instance_type: m1.medium
+    instance_type: m1.small
   network: cf1
   reuse_compilation_vms: true
   workers: 6
@@ -1981,7 +1981,7 @@ resource_pools:
     name: bosh-openstack-kvm-ubuntu-trusty-go_agent
     version: latest
 - cloud_properties:
-    instance_type: m1.medium
+    instance_type: m1.small
   env:
     bosh:
       password: $6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0
@@ -1991,7 +1991,7 @@ resource_pools:
     name: bosh-openstack-kvm-ubuntu-trusty-go_agent
     version: latest
 - cloud_properties:
-    instance_type: m1.medium
+    instance_type: m1.small
   env:
     bosh:
       password: $6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0
@@ -2041,7 +2041,7 @@ resource_pools:
     name: bosh-openstack-kvm-ubuntu-trusty-go_agent
     version: latest
 - cloud_properties:
-    instance_type: m1.medium
+    instance_type: m1.small
   env:
     bosh:
       password: $6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0
@@ -2051,7 +2051,7 @@ resource_pools:
     name: bosh-openstack-kvm-ubuntu-trusty-go_agent
     version: latest
 - cloud_properties:
-    instance_type: m1.medium
+    instance_type: m1.small
   env:
     bosh:
       password: $6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0
