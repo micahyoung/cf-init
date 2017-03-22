@@ -1,10 +1,11 @@
 #!/bin/bash
 
-proxy_ip="172.18.161.5"
-export http_proxy="http://$proxy_ip:8123"
-export https_proxy="http://$proxy_ip:8123"
-export PATH=`pwd`/bin:$PATH
+#proxy_ip="172.18.161.5"
+#export http_proxy="http://$proxy_ip:8123"
+#export https_proxy="http://$proxy_ip:8123"
+export PATH=`pwd`/bin:~/go/bin:$PATH
 cf_version=254
+consul_version=158
 
 if ! [ -d bin ]; then
   mkdir bin
@@ -26,11 +27,13 @@ fi
 pushd cf-release
   git checkout "v$cf_version"
   git clean -fdx
+  git submodule update --init src/consul-release
   ./scripts/generate-cf-diego-certs
   ./scripts/generate-blobstore-certs
   ./scripts/generate-loggregator-certs cf-diego-certs/cf-diego-ca.crt cf-diego-certs/cf-diego-ca.key
   ./scripts/generate-statsd-injector-certs loggregator-certs/loggregator-ca.crt loggregator-certs/loggregator-ca.key
   ./scripts/generate-hm9000-certs
+  ./scripts/generate-consul-certs
 popd
 
 DIRECTOR_UUID='6a03f58f-91a2-4942-95b0-34abf99a3480' #changeme
@@ -43,7 +46,7 @@ APP_DOMAIN=app.cf.young.io
 STAGING_UPLOAD_USER=staging
 STAGING_UPLOAD_PASSWORD=password
 BULK_API_PASSWORD=password
-DB_ENCRYPTION_KEY=0s46MDtWn1hBijUKEoSAgKNlMFHFwz93
+DB_ENCRYPTION_KEY=secret
 CC_MUTUAL_TLS_CA_CERT=$(cat cf-release/cf-diego-certs/cf-diego-ca.crt)
 CC_MUTUAL_TLS_PUBLIC_CERT=$(cat cf-release/cf-diego-certs/cloud-controller.crt)
 CC_MUTUAL_TLS_PRIVATE_KEY=$(cat cf-release/cf-diego-certs/cloud-controller.key)
@@ -67,12 +70,18 @@ LOGGREGATOR_SYSLOGDRAINBINDER_CERT=$(cat cf-release/loggregator-certs/syslogdrai
 LOGGREGATOR_SYSLOGDRAINBINDER_KEY=$(cat cf-release/loggregator-certs/syslogdrainbinder.key)
 LOGGREGATOR_STATSDINJECTOR_CERT=$(cat cf-release/statsd-injector-certs/statsdinjector.crt)
 LOGGREGATOR_STATSDINJECTOR_KEY=$(cat cf-release/statsd-injector-certs/statsdinjector.key)
-LOGGREGATOR_ENDPOINT_SHARED_SECRET=VDwqjbfDJpk3Ttx15U7v8Z6TrOtuPg05
+LOGGREGATOR_ENDPOINT_SHARED_SECRET=secret
 HM9000_SERVER_KEY=$(cat cf-release/hm9000-certs/hm9000_server.key)
 HM9000_SERVER_CERT=$(cat cf-release/hm9000-certs/hm9000_server.crt)
 HM9000_CLIENT_KEY=$(cat cf-release/hm9000-certs/hm9000_client.key)
 HM9000_CLIENT_CERT=$(cat cf-release/hm9000-certs/hm9000_client.crt)
 HM9000_CA_CERT=$(cat cf-release/hm9000-certs/hm9000_ca.crt)
+CONSUL_ENCRYPT_KEY=secret
+CONSUL_CA_CERT=$(cat cf-release/consul-certs/server-ca.crt)
+CONSUL_SERVER_CERT=$(cat cf-release/consul-certs/server.crt)
+CONSUL_SERVER_KEY=$(cat cf-release/consul-certs/server.key)
+CONSUL_AGENT_CERT=$(cat cf-release/consul-certs/agent.crt)
+CONSUL_AGENT_KEY=$(cat cf-release/consul-certs/agent.key)
 
 cat > cf-stub.yml <<EOF
 ---
@@ -148,12 +157,12 @@ properties:
       ca_cert: "$BLOBSTORE_CA_CERT"
   consul:
     encrypt_keys:
-      - CONSUL_ENCRYPT_KEY
-    ca_cert: CONSUL_CA_CERT
-    server_cert: CONSUL_SERVER_CERT
-    server_key: CONSUL_SERVER_KEY
-    agent_cert: CONSUL_AGENT_CERT
-    agent_key: CONSUL_AGENT_KEY
+      - $CONSUL_ENCRYPT_KEY
+    ca_cert: "$CONSUL_CA_CERT"
+    server_cert: "$CONSUL_SERVER_CERT"
+    server_key: "$CONSUL_SERVER_KEY"
+    agent_cert: "$CONSUL_AGENT_CERT"
+    agent_key: "$CONSUL_AGENT_KEY"
   dea_next:
     disk_mb: 2048
     memory_mb: 1024
