@@ -35,6 +35,7 @@ pushd cf-release
   ./scripts/generate-hm9000-certs
   ./scripts/generate-consul-certs
   ./scripts/generate-etcd-certs
+  ./scripts/generate-uaa-certs
 popd
 
 DIRECTOR_UUID='6a03f58f-91a2-4942-95b0-34abf99a3480' #changeme
@@ -60,6 +61,7 @@ BLOBSTORE_CA_CERT=$(cat cf-release/blobstore-certs/server-ca.crt)
 NATS_USER=nats
 NATS_PASSWORD=nats-password
 ADMIN_SECRET=admin
+ADMIN_PASSWORD=admin
 LOGGREGATOR_CA_CERT=$(cat cf-release/loggregator-certs/loggregator-ca.crt)
 LOGGREGATOR_DOPPLER_CERT=$(cat cf-release/loggregator-certs/doppler.crt)
 LOGGREGATOR_DOPPLER_KEY=$(cat cf-release/loggregator-certs/doppler.key)
@@ -90,6 +92,24 @@ ETCD_PEER_CERT=$(cat cf-release/etcd-certs/peer.crt)
 ETCD_PEER_KEY=$(cat cf-release/etcd-certs/peer.key)
 ETCD_SERVER_CERT=$(cat cf-release/etcd-certs/server.crt)
 ETCD_SERVER_KEY=$(cat cf-release/etcd-certs/server.key)
+DOPPLER_SECRET=secret
+CCDB_PASSWORD=password
+UAADB_PASSWORD=password
+DIEGODB_PASSWORD=password
+ROUTER_USER=router
+ROUTER_PASSWORD=password
+CC_CLIENT_SECRET=secret
+CC_ROUTING_SECRET=secret
+CLOUD_CONTROLLER_USERNAME_LOOKUP_SECRET=secret
+GOROUTER_SECRET=secret
+TCP_EMITTER_SECRET=secret
+TCP_ROUTER_SECRET=secret
+LOGIN_CLIENT_SECRET=secret
+NOTIFICATIONS_CLIENT_SECRET=secret
+CC_SERVICE_DASHBOARDS_SECRET=secret
+UAA_CA_CERT=$(cat cf-release/uaa-certs/server-ca.crt)
+UAA_SERVER_CERT=$(cat cf-release/uaa-certs/server.crt)
+UAA_SERVER_KEY=$(cat cf-release/uaa-certs/server.key)
 
 cat > cf-stub.yml <<EOF
 ---
@@ -214,65 +234,65 @@ properties:
     password: $NATS_PASSWORD
   router:
     status:
-      user: ROUTER_USER
-      password: ROUTER_PASSWORD
+      user: $ROUTER_USER
+      password: $ROUTER_PASSWORD
   uaa:
     admin:
       client_secret: $ADMIN_SECRET
-    ca_cert: UAA_CA_CERT
+    ca_cert: '$UAA_CA_CERT'
     cc:
-      client_secret: CC_CLIENT_SECRET
+      client_secret: $CC_CLIENT_SECRET
     clients:
       cc_routing:
-        secret: CC_ROUTING_SECRET
+        secret: $CC_ROUTING_SECRET
       cloud_controller_username_lookup:
-        secret: CLOUD_CONTROLLER_USERNAME_LOOKUP_SECRET
+        secret: $CLOUD_CONTROLLER_USERNAME_LOOKUP_SECRET
       doppler:
-        secret: DOPPLER_SECRET
+        secret: $DOPPLER_SECRET
       gorouter:
-        secret: GOROUTER_SECRET
+        secret: $GOROUTER_SECRET
       tcp_emitter:
-        secret: TCP-EMITTER-SECRET
+        secret: $TCP_EMITTER_SECRET
       tcp_router:
-        secret: TCP-ROUTER-SECRET
+        secret: $TCP_ROUTER_SECRET
       login:
-        secret: LOGIN_CLIENT_SECRET
+        secret: $LOGIN_CLIENT_SECRET
       notifications:
-        secret: NOTIFICATIONS_CLIENT_SECRET
+        secret: $NOTIFICATIONS_CLIENT_SECRET
       cc-service-dashboards:
-        secret: CC_SERVICE_DASHBOARDS_SECRET
+        secret: $CC_SERVICE_DASHBOARDS_SECRET
     jwt:
       verification_key: JWT_VERIFICATION_KEY
       signing_key: JWT_SIGNING_KEY
     scim:
       users:
       - name: admin
-        password: ADMIN_PASSWORD
+        password: $ADMIN_PASSWORD
         groups:
         - scim.write
         - scim.read
         - openid
         - cloud_controller.admin
         - doppler.firehose
-    sslCertificate: UAA_SERVER_CERT
-    sslPrivateKey: UAA_SERVER_KEY
+    sslCertificate: '$UAA_SERVER_CERT'
+    sslPrivateKey: '$UAA_SERVER_KEY'
 
   ccdb:
     roles:
     - name: ccadmin
-      password: CCDB_PASSWORD
+      password: $CCDB_PASSWORD
   uaadb:
     roles:
     - name: uaaadmin
-      password: UAADB_PASSWORD
+      password: $UAADB_PASSWORD
   databases:
     roles:
     - name: ccadmin
-      password: CCDB_PASSWORD
+      password: $CCDB_PASSWORD
     - name: uaaadmin
-      password: UAADB_PASSWORD
+      password: $UAADB_PASSWORD
     - name: diego
-      password: DIEGODB_PASSWORD
+      password: $DIEGODB_PASSWORD
   hm9000:
     server_key: '$HM9000_SERVER_KEY'
     server_cert: '$HM9000_SERVER_CERT'
