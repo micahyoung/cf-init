@@ -140,9 +140,9 @@ properties:
     db_encryption_key: $DB_ENCRYPTION_KEY
     uaa_skip_ssl_validation: true
     mutual_tls:
-      ca_cert: "$CC_MUTUAL_TLS_CA_CERT"
-      public_cert: "$CC_MUTUAL_TLS_PUBLIC_CERT"
-      private_key: "$CC_MUTUAL_TLS_PRIVATE_KEY"
+      ca_cert: '$CC_MUTUAL_TLS_CA_CERT'
+      public_cert: '$CC_MUTUAL_TLS_PUBLIC_CERT'
+      private_key: '$CC_MUTUAL_TLS_PRIVATE_KEY'
 
   blobstore:
     admin_users:
@@ -151,17 +151,17 @@ properties:
     secure_link:
       secret: $BLOBSTORE_SECRET
     tls:
-      cert: "$BLOBSTORE_TLS_CERT"
-      private_key: "$BLOBSTORE_PRIVATE_KEY"
-      ca_cert: "$BLOBSTORE_CA_CERT"
+      cert: '$BLOBSTORE_TLS_CERT'
+      private_key: '$BLOBSTORE_PRIVATE_KEY'
+      ca_cert: '$BLOBSTORE_CA_CERT'
   consul:
     encrypt_keys:
       - $CONSUL_ENCRYPT_KEY
-    ca_cert: "$CONSUL_CA_CERT"
-    server_cert: "$CONSUL_SERVER_CERT"
-    server_key: "$CONSUL_SERVER_KEY"
-    agent_cert: "$CONSUL_AGENT_CERT"
-    agent_key: "$CONSUL_AGENT_KEY"
+    ca_cert: '$CONSUL_CA_CERT'
+    server_cert: '$CONSUL_SERVER_CERT'
+    server_key: '$CONSUL_SERVER_KEY'
+    agent_cert: '$CONSUL_AGENT_CERT'
+    agent_key: '$CONSUL_AGENT_KEY'
   dea_next:
     disk_mb: 2048
     memory_mb: 1024
@@ -177,22 +177,22 @@ properties:
     server_key: ETCD_SERVER_KEY
   loggregator:
     tls:
-      ca_cert: "$LOGGREGATOR_CA_CERT"
+      ca_cert: '$LOGGREGATOR_CA_CERT'
       doppler:
-        cert: "$LOGGREGATOR_DOPPLER_CERT"
-        key: "$LOGGREGATOR_DOPPLER_KEY"
+        cert: '$LOGGREGATOR_DOPPLER_CERT'
+        key: '$LOGGREGATOR_DOPPLER_KEY'
       trafficcontroller:
-        cert: "$LOGGREGATOR_TRAFFICCONTROLLER_CERT"
-        key: "$LOGGREGATOR_TRAFFICCONTROLLER_KEY"
+        cert: '$LOGGREGATOR_TRAFFICCONTROLLER_CERT'
+        key: '$LOGGREGATOR_TRAFFICCONTROLLER_KEY'
       metron:
-        cert: "$LOGGREGATOR_METRON_CERT"
-        key: "$LOGGREGATOR_METRON_KEY"
+        cert: '$LOGGREGATOR_METRON_CERT'
+        key: '$LOGGREGATOR_METRON_KEY'
       syslogdrainbinder:
-        cert: "$LOGGREGATOR_SYSLOGDRAINBINDER_CERT"
-        key: "$LOGGREGATOR_SYSLOGDRAINBINDER_KEY"
+        cert: '$LOGGREGATOR_SYSLOGDRAINBINDER_CERT'
+        key: '$LOGGREGATOR_SYSLOGDRAINBINDER_KEY'
       statsd_injector:
-        cert: "$LOGGREGATOR_STATSDINJECTOR_CERT"
-        key: "$LOGGREGATOR_STATSDINJECTOR_KEY"
+        cert: '$LOGGREGATOR_STATSDINJECTOR_CERT'
+        key: '$LOGGREGATOR_STATSDINJECTOR_KEY'
   loggregator_endpoint:
     shared_secret: $LOGGREGATOR_ENDPOINT_SHARED_SECRET
   login:
@@ -265,11 +265,11 @@ properties:
     - name: diego
       password: DIEGODB_PASSWORD
   hm9000:
-    server_key: "$HM9000_SERVER_KEY"
-    server_cert: "$HM9000_SERVER_CERT"
-    client_key: "$HM9000_CLIENT_KEY"
-    client_cert: "$HM9000_CLIENT_CERT"
-    ca_cert: "$HM9000_CA_CERT"
+    server_key: '$HM9000_SERVER_KEY'
+    server_cert: '$HM9000_SERVER_CERT'
+    client_key: '$HM9000_CLIENT_KEY'
+    client_cert: '$HM9000_CLIENT_CERT'
+    ca_cert: '$HM9000_CA_CERT'
 
 jobs:
   - name: ha_proxy_z1
