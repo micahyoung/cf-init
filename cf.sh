@@ -69,8 +69,9 @@ LOGGREGATOR_CA_CERT=$(cat cf-release/loggregator-certs/loggregator-ca.crt)
 LOGGREGATOR_DOPPLER_CERT=$(cat cf-release/loggregator-certs/doppler.crt)
 LOGGREGATOR_DOPPLER_KEY=$(cat cf-release/loggregator-certs/doppler.key)
 LOGGREGATOR_TRAFFICCONTROLLER_CERT=$(cat cf-release/loggregator-certs/trafficcontroller.crt)
-LOGGREGATOR_TRAFFICCONTROLLER_KEY=$(cat cf-release/loggregator-certs/trafficcontroller.key) LOGGREGATOR_METRON_CERT=$(cat cf-release/loggregator-certs/metron.crt)
-LOGGREGATOR_METRON_KEY=$(cat cf-release/loggregator-certs/metron.key)
+LOGGREGATOR_TRAFFICCONTROLLER_KEY=$(cat cf-release/loggregator-certs/trafficcontroller.key)
+LOGGREGATOR_METRON_CERT=$(base64 cf-release/loggregator-certs/metron.crt)
+LOGGREGATOR_METRON_KEY=$(base64 cf-release/loggregator-certs/metron.key)
 LOGGREGATOR_SYSLOGDRAINBINDER_CERT=$(cat cf-release/loggregator-certs/syslogdrainbinder.crt)
 LOGGREGATOR_SYSLOGDRAINBINDER_KEY=$(cat cf-release/loggregator-certs/syslogdrainbinder.key)
 LOGGREGATOR_STATSDINJECTOR_CERT=$(cat cf-release/statsd-injector-certs/statsdinjector.crt)
@@ -82,11 +83,11 @@ HM9000_CLIENT_KEY=$(cat cf-release/hm9000-certs/hm9000_client.key)
 HM9000_CLIENT_CERT=$(cat cf-release/hm9000-certs/hm9000_client.crt)
 HM9000_CA_CERT=$(cat cf-release/hm9000-certs/hm9000_ca.crt)
 CONSUL_ENCRYPT_KEY=secret
-CONSUL_CA_CERT=$(cat cf-release/consul-certs/server-ca.crt)
-CONSUL_SERVER_CERT=$(cat cf-release/consul-certs/server.crt)
-CONSUL_SERVER_KEY=$(cat cf-release/consul-certs/server.key)
-CONSUL_AGENT_CERT=$(cat cf-release/consul-certs/agent.crt)
-CONSUL_AGENT_KEY=$(cat cf-release/consul-certs/agent.key)
+CONSUL_CA_CERT=$(base64 cf-release/consul-certs/server-ca.crt)
+CONSUL_SERVER_CERT=$(base64 cf-release/consul-certs/server.crt)
+CONSUL_SERVER_KEY=$(base64 cf-release/consul-certs/server.key)
+CONSUL_AGENT_CERT=$(base64 cf-release/consul-certs/agent.crt)
+CONSUL_AGENT_KEY=$(base64 cf-release/consul-certs/agent.key)
 ETCD_CA_CERT=$(cat cf-release/etcd-certs/etcd-ca.crt)
 ETCD_CLIENT_CERT=$(cat cf-release/etcd-certs/client.crt)
 ETCD_CLIENT_KEY=$(cat cf-release/etcd-certs/client.key)
@@ -189,11 +190,11 @@ properties:
   consul:
     encrypt_keys:
       - $CONSUL_ENCRYPT_KEY
-    ca_cert: '$CONSUL_CA_CERT'
-    server_cert: '$CONSUL_SERVER_CERT'
-    server_key: '$CONSUL_SERVER_KEY'
-    agent_cert: '$CONSUL_AGENT_CERT'
-    agent_key: '$CONSUL_AGENT_KEY'
+    ca_cert: !!binary $CONSUL_CA_CERT
+    server_cert: !!binary $CONSUL_SERVER_CERT
+    server_key: !!binary $CONSUL_SERVER_KEY
+    agent_cert: !!binary $CONSUL_AGENT_CERT
+    agent_key: !!binary $CONSUL_AGENT_KEY
   dea_next:
     disk_mb: 2048
     memory_mb: 1024
@@ -217,8 +218,8 @@ properties:
         cert: '$LOGGREGATOR_TRAFFICCONTROLLER_CERT'
         key: '$LOGGREGATOR_TRAFFICCONTROLLER_KEY'
       metron:
-        cert: '$LOGGREGATOR_METRON_CERT'
-        key: '$LOGGREGATOR_METRON_KEY'
+        cert: !!binary $LOGGREGATOR_METRON_CERT
+        key: !!binary $LOGGREGATOR_METRON_KEY
       syslogdrainbinder:
         cert: '$LOGGREGATOR_SYSLOGDRAINBINDER_CERT'
         key: '$LOGGREGATOR_SYSLOGDRAINBINDER_KEY'
