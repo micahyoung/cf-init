@@ -58,7 +58,7 @@ director_uuid: $DIRECTOR_UUID
 compilation:
   cloud_properties:
     instance_type: m1.small
-  workers: 4
+  workers: 3
 
 meta:
   environment: $ENVIRONMENT
