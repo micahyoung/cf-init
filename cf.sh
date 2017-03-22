@@ -75,15 +75,15 @@ networks:
   - name: cf1
     type: manual
     subnets:
-    - range: 10.10.0.0/24
-      gateway: 10.10.0.1
+    - range: 10.0.0.0/24
+      gateway: 10.0.0.1
       reserved:
-      - 10.10.0.2 - 10.10.0.100
-      - 10.10.0.200 - 10.10.0.254
+      - 10.0.0.2 - 10.0.0.100
+      - 10.0.0.200 - 10.0.0.254
       dns:
       - 8.8.8.8
       static:
-      - 10.10.0.125 - 10.10.0.175
+      - 10.0.0.125 - 10.0.0.175
       cloud_properties:
         net_id: $NET_ID
         security_groups: ["cf"]
