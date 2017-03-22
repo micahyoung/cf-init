@@ -52,50 +52,50 @@ STAGING_UPLOAD_USER=staging
 STAGING_UPLOAD_PASSWORD=password
 BULK_API_PASSWORD=password
 DB_ENCRYPTION_KEY=secret
-CC_MUTUAL_TLS_CA_CERT=$(cat cf-release/cf-diego-certs/cf-diego-ca.crt)
-CC_MUTUAL_TLS_PUBLIC_CERT=$(cat cf-release/cf-diego-certs/cloud-controller.crt)
-CC_MUTUAL_TLS_PRIVATE_KEY=$(cat cf-release/cf-diego-certs/cloud-controller.key)
+CC_MUTUAL_TLS_CA_CERT=$(base64 cf-release/cf-diego-certs/cf-diego-ca.crt)
+CC_MUTUAL_TLS_PUBLIC_CERT=$(base64 cf-release/cf-diego-certs/cloud-controller.crt)
+CC_MUTUAL_TLS_PRIVATE_KEY=$(base64 cf-release/cf-diego-certs/cloud-controller.key)
 BLOBSTORE_USERNAME=blobstore
 BLOBSTORE_PASSWORD=password
 BLOBSTORE_SECRET=blobstore-secret
-BLOBSTORE_TLS_CERT=$(cat cf-release/blobstore-certs/server.crt)
-BLOBSTORE_PRIVATE_KEY=$(cat cf-release/blobstore-certs/server.key)
-BLOBSTORE_CA_CERT=$(cat cf-release/blobstore-certs/server-ca.crt) 
+BLOBSTORE_TLS_CERT=$(base64 cf-release/blobstore-certs/server.crt)
+BLOBSTORE_PRIVATE_KEY=$(base64 cf-release/blobstore-certs/server.key)
+BLOBSTORE_CA_CERT=$(base64 cf-release/blobstore-certs/server-ca.crt) 
 NATS_USER=nats
 NATS_PASSWORD=nats-password
 ADMIN_SECRET=admin
 ADMIN_PASSWORD=admin
 LOGGREGATOR_CA_CERT=$(base64 cf-release/loggregator-certs/loggregator-ca.crt)
-LOGGREGATOR_DOPPLER_CERT=$(cat cf-release/loggregator-certs/doppler.crt)
-LOGGREGATOR_DOPPLER_KEY=$(cat cf-release/loggregator-certs/doppler.key)
-LOGGREGATOR_TRAFFICCONTROLLER_CERT=$(cat cf-release/loggregator-certs/trafficcontroller.crt)
-LOGGREGATOR_TRAFFICCONTROLLER_KEY=$(cat cf-release/loggregator-certs/trafficcontroller.key)
+LOGGREGATOR_DOPPLER_CERT=$(base64 cf-release/loggregator-certs/doppler.crt)
+LOGGREGATOR_DOPPLER_KEY=$(base64 cf-release/loggregator-certs/doppler.key)
+LOGGREGATOR_TRAFFICCONTROLLER_CERT=$(base64 cf-release/loggregator-certs/trafficcontroller.crt)
+LOGGREGATOR_TRAFFICCONTROLLER_KEY=$(base64 cf-release/loggregator-certs/trafficcontroller.key)
 LOGGREGATOR_METRON_CERT=$(base64 cf-release/loggregator-certs/metron.crt)
 LOGGREGATOR_METRON_KEY=$(base64 cf-release/loggregator-certs/metron.key)
-LOGGREGATOR_SYSLOGDRAINBINDER_CERT=$(cat cf-release/loggregator-certs/syslogdrainbinder.crt)
-LOGGREGATOR_SYSLOGDRAINBINDER_KEY=$(cat cf-release/loggregator-certs/syslogdrainbinder.key)
-LOGGREGATOR_STATSDINJECTOR_CERT=$(cat cf-release/statsd-injector-certs/statsdinjector.crt)
-LOGGREGATOR_STATSDINJECTOR_KEY=$(cat cf-release/statsd-injector-certs/statsdinjector.key)
+LOGGREGATOR_SYSLOGDRAINBINDER_CERT=$(base64 cf-release/loggregator-certs/syslogdrainbinder.crt)
+LOGGREGATOR_SYSLOGDRAINBINDER_KEY=$(base64 cf-release/loggregator-certs/syslogdrainbinder.key)
+LOGGREGATOR_STATSDINJECTOR_CERT=$(base64 cf-release/statsd-injector-certs/statsdinjector.crt)
+LOGGREGATOR_STATSDINJECTOR_KEY=$(base64 cf-release/statsd-injector-certs/statsdinjector.key)
 LOGGREGATOR_ENDPOINT_SHARED_SECRET=secret
-HM9000_SERVER_KEY=$(cat cf-release/hm9000-certs/hm9000_server.key)
-HM9000_SERVER_CERT=$(cat cf-release/hm9000-certs/hm9000_server.crt)
-HM9000_CLIENT_KEY=$(cat cf-release/hm9000-certs/hm9000_client.key)
-HM9000_CLIENT_CERT=$(cat cf-release/hm9000-certs/hm9000_client.crt)
-HM9000_CA_CERT=$(cat cf-release/hm9000-certs/hm9000_ca.crt)
+HM9000_SERVER_KEY=$(base64 cf-release/hm9000-certs/hm9000_server.key)
+HM9000_SERVER_CERT=$(base64 cf-release/hm9000-certs/hm9000_server.crt)
+HM9000_CLIENT_KEY=$(base64 cf-release/hm9000-certs/hm9000_client.key)
+HM9000_CLIENT_CERT=$(base64 cf-release/hm9000-certs/hm9000_client.crt)
+HM9000_CA_CERT=$(base64 cf-release/hm9000-certs/hm9000_ca.crt)
 CONSUL_ENCRYPT_KEY=secret
 CONSUL_CA_CERT=$(base64 cf-release/consul-certs/server-ca.crt)
 CONSUL_SERVER_CERT=$(base64 cf-release/consul-certs/server.crt)
 CONSUL_SERVER_KEY=$(base64 cf-release/consul-certs/server.key)
 CONSUL_AGENT_CERT=$(base64 cf-release/consul-certs/agent.crt)
 CONSUL_AGENT_KEY=$(base64 cf-release/consul-certs/agent.key)
-ETCD_CA_CERT=$(cat cf-release/etcd-certs/etcd-ca.crt)
-ETCD_CLIENT_CERT=$(cat cf-release/etcd-certs/client.crt)
-ETCD_CLIENT_KEY=$(cat cf-release/etcd-certs/client.key)
-ETCD_PEER_CA_CERT=$(cat cf-release/etcd-certs/peer-ca.crt)
-ETCD_PEER_CERT=$(cat cf-release/etcd-certs/peer.crt)
-ETCD_PEER_KEY=$(cat cf-release/etcd-certs/peer.key)
-ETCD_SERVER_CERT=$(cat cf-release/etcd-certs/server.crt)
-ETCD_SERVER_KEY=$(cat cf-release/etcd-certs/server.key)
+ETCD_CA_CERT=$(base64 cf-release/etcd-certs/etcd-ca.crt)
+ETCD_CLIENT_CERT=$(base64 cf-release/etcd-certs/client.crt)
+ETCD_CLIENT_KEY=$(base64 cf-release/etcd-certs/client.key)
+ETCD_PEER_CA_CERT=$(base64 cf-release/etcd-certs/peer-ca.crt)
+ETCD_PEER_CERT=$(base64 cf-release/etcd-certs/peer.crt)
+ETCD_PEER_KEY=$(base64 cf-release/etcd-certs/peer.key)
+ETCD_SERVER_CERT=$(base64 cf-release/etcd-certs/server.crt)
+ETCD_SERVER_KEY=$(base64 cf-release/etcd-certs/server.key)
 DOPPLER_SECRET=secret
 CCDB_PASSWORD=password
 UAADB_PASSWORD=password
@@ -111,9 +111,9 @@ TCP_ROUTER_SECRET=secret
 LOGIN_CLIENT_SECRET=secret
 NOTIFICATIONS_CLIENT_SECRET=secret
 CC_SERVICE_DASHBOARDS_SECRET=secret
-UAA_CA_CERT=$(cat cf-release/uaa-certs/server-ca.crt)
-UAA_SERVER_CERT=$(cat cf-release/uaa-certs/server.crt)
-UAA_SERVER_KEY=$(cat cf-release/uaa-certs/server.key)
+UAA_CA_CERT=$(base64 cf-release/uaa-certs/server-ca.crt)
+UAA_SERVER_CERT=$(base64 cf-release/uaa-certs/server.crt)
+UAA_SERVER_KEY=$(base64 cf-release/uaa-certs/server.key)
 
 cat > cf-stub.yml <<EOF
 ---
@@ -173,9 +173,9 @@ properties:
     db_encryption_key: $DB_ENCRYPTION_KEY
     uaa_skip_ssl_validation: true
     mutual_tls:
-      ca_cert: '$CC_MUTUAL_TLS_CA_CERT'
-      public_cert: '$CC_MUTUAL_TLS_PUBLIC_CERT'
-      private_key: '$CC_MUTUAL_TLS_PRIVATE_KEY'
+      ca_cert: !!binary $CC_MUTUAL_TLS_CA_CERT
+      public_cert: !!binary $CC_MUTUAL_TLS_PUBLIC_CERT
+      private_key: !!binary $CC_MUTUAL_TLS_PRIVATE_KEY
 
   blobstore:
     admin_users:
@@ -184,9 +184,9 @@ properties:
     secure_link:
       secret: $BLOBSTORE_SECRET
     tls:
-      cert: '$BLOBSTORE_TLS_CERT'
-      private_key: '$BLOBSTORE_PRIVATE_KEY'
-      ca_cert: '$BLOBSTORE_CA_CERT'
+      cert: !!binary $BLOBSTORE_TLS_CERT
+      private_key: !!binary $BLOBSTORE_PRIVATE_KEY
+      ca_cert: !!binary $BLOBSTORE_CA_CERT
   consul:
     encrypt_keys:
       - $CONSUL_ENCRYPT_KEY
@@ -200,32 +200,32 @@ properties:
     memory_mb: 1024
   etcd:
     require_ssl: true
-    ca_cert: '$ETCD_CA_CERT'
-    client_cert: '$ETCD_CLIENT_CERT'
-    client_key: '$ETCD_CLIENT_KEY'
-    peer_ca_cert: '$ETCD_PEER_CA_CERT'
-    peer_cert: '$ETCD_PEER_CERT'
-    peer_key: '$ETC_PEER_KEY'
-    server_cert: '$ETCD_SERVER_CERT'
-    server_key: '$ETCD_SERVER_KEY'
+    ca_cert: !!binary $ETCD_CA_CERT
+    client_cert: !!binary $ETCD_CLIENT_CERT
+    client_key: !!binary $ETCD_CLIENT_KEY
+    peer_ca_cert: !!binary $ETCD_PEER_CA_CERT
+    peer_cert: !!binary $ETCD_PEER_CERT
+    peer_key: !!binary $ETCD_PEER_KEY
+    server_cert: !!binary $ETCD_SERVER_CERT
+    server_key: !!binary $ETCD_SERVER_KEY
   loggregator:
     tls:
       ca_cert: !!binary $LOGGREGATOR_CA_CERT
       doppler:
-        cert: '$LOGGREGATOR_DOPPLER_CERT'
-        key: '$LOGGREGATOR_DOPPLER_KEY'
+        cert: !!binary $LOGGREGATOR_DOPPLER_CERT
+        key: !!binary $LOGGREGATOR_DOPPLER_KEY
       trafficcontroller:
-        cert: '$LOGGREGATOR_TRAFFICCONTROLLER_CERT'
-        key: '$LOGGREGATOR_TRAFFICCONTROLLER_KEY'
+        cert: !!binary $LOGGREGATOR_TRAFFICCONTROLLER_CERT
+        key: !!binary $LOGGREGATOR_TRAFFICCONTROLLER_KEY
       metron:
         cert: !!binary $LOGGREGATOR_METRON_CERT
         key: !!binary $LOGGREGATOR_METRON_KEY
       syslogdrainbinder:
-        cert: '$LOGGREGATOR_SYSLOGDRAINBINDER_CERT'
-        key: '$LOGGREGATOR_SYSLOGDRAINBINDER_KEY'
+        cert: !!binary $LOGGREGATOR_SYSLOGDRAINBINDER_CERT
+        key: !!binary $LOGGREGATOR_SYSLOGDRAINBINDER_KEY
       statsd_injector:
-        cert: '$LOGGREGATOR_STATSDINJECTOR_CERT'
-        key: '$LOGGREGATOR_STATSDINJECTOR_KEY'
+        cert: !!binary $LOGGREGATOR_STATSDINJECTOR_CERT
+        key: !!binary $LOGGREGATOR_STATSDINJECTOR_KEY
   loggregator_endpoint:
     shared_secret: $LOGGREGATOR_ENDPOINT_SHARED_SECRET
   login:
@@ -243,7 +243,7 @@ properties:
   uaa:
     admin:
       client_secret: $ADMIN_SECRET
-    ca_cert: '$UAA_CA_CERT'
+    ca_cert: !!binary $UAA_CA_CERT
     cc:
       client_secret: $CC_CLIENT_SECRET
     clients:
@@ -278,8 +278,8 @@ properties:
         - openid
         - cloud_controller.admin
         - doppler.firehose
-    sslCertificate: '$UAA_SERVER_CERT'
-    sslPrivateKey: '$UAA_SERVER_KEY'
+    sslCertificate: !!binary $UAA_SERVER_CERT
+    sslPrivateKey: !!binary $UAA_SERVER_KEY
 
   ccdb:
     roles:
@@ -298,11 +298,11 @@ properties:
     - name: diego
       password: $DIEGODB_PASSWORD
   hm9000:
-    server_key: '$HM9000_SERVER_KEY'
-    server_cert: '$HM9000_SERVER_CERT'
-    client_key: '$HM9000_CLIENT_KEY'
-    client_cert: '$HM9000_CLIENT_CERT'
-    ca_cert: '$HM9000_CA_CERT'
+    server_key: !!binary $HM9000_SERVER_KEY
+    server_cert: !!binary $HM9000_SERVER_CERT
+    client_key: !!binary $HM9000_CLIENT_KEY
+    client_cert: !!binary $HM9000_CLIENT_CERT
+    ca_cert: !!binary $HM9000_CA_CERT
 
 jobs:
   - name: ha_proxy_z1
