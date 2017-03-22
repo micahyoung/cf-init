@@ -24,19 +24,22 @@ if ! [ -d cf-release ]; then
   git clone https://github.com/cloudfoundry/cf-release.git
 fi
 
-pushd cf-release
-  git checkout "v$cf_version"
-  git clean -fdx
-  git submodule update --init src/consul-release
-  ./scripts/generate-cf-diego-certs
-  ./scripts/generate-blobstore-certs
-  ./scripts/generate-loggregator-certs cf-diego-certs/cf-diego-ca.crt cf-diego-certs/cf-diego-ca.key
-  ./scripts/generate-statsd-injector-certs loggregator-certs/loggregator-ca.crt loggregator-certs/loggregator-ca.key
-  ./scripts/generate-hm9000-certs
-  ./scripts/generate-consul-certs
-  ./scripts/generate-etcd-certs
-  ./scripts/generate-uaa-certs
-popd
+if [ "$1" == "generate-certs" ]; then
+  pushd cf-release
+    git checkout "v$cf_version"
+    git clean -fdx
+    git submodule update --init src/consul-release
+    ./scripts/generate-cf-diego-certs
+    ./scripts/generate-blobstore-certs
+    ./scripts/generate-loggregator-certs cf-diego-certs/cf-diego-ca.crt cf-diego-certs/cf-diego-ca.key
+    ./scripts/generate-statsd-injector-certs loggregator-certs/loggregator-ca.crt loggregator-certs/loggregator-ca.key
+    ./scripts/generate-hm9000-certs
+    ./scripts/generate-consul-certs
+    ./scripts/generate-etcd-certs
+    ./scripts/generate-uaa-certs
+  popd
+fi
+
 
 DIRECTOR_UUID='6a03f58f-91a2-4942-95b0-34abf99a3480' #changeme
 NET_ID='09172e34-690a-423b-a26b-5b95ab42cffc' #changeme
@@ -141,7 +144,7 @@ networks:
       - 10.0.0.2 - 10.0.0.100
       - 10.0.0.200 - 10.0.0.254
       dns:
-      - 10.10.0.2
+      - 10.0.0.2
       static:
       - 10.0.0.125 - 10.0.0.175
       cloud_properties:
