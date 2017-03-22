@@ -3,17 +3,32 @@
 proxy_ip="172.18.161.5"
 export http_proxy="http://$proxy_ip:8123"
 export https_proxy="http://$proxy_ip:8123"
+export PATH=`pwd`/bin:$PATH
 cf_version=254
 
-#./bosh-cli -e bosh upload-release https://bosh.io/d/github.com/cloudfoundry/cf-release?v=$cf_version
-git clone https://github.com/cloudfoundry/cf-release.git
+if ! [ -d bin ]; then
+  mkdir bin
+fi
 
-#pushd cf-release
-#   git checkout "v$cf_version"
-#   git clean -fdx
-#  ./scripts/generate-cf-diego-certs
-#  ./scripts/generate-blobstore-certs
-#popd
+pushd bin
+  if ! [ -f spiff ]; then
+    curl -JL "https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.8/spiff_darwin_amd64.zip" > spiff.zip
+    unzip spiff.zip
+    rm spiff.zip
+  fi
+popd
+
+#./bosh-cli -e bosh upload-release https://bosh.io/d/github.com/cloudfoundry/cf-release?v=$cf_version
+if ! [ -d cf-release ]; then
+  git clone https://github.com/cloudfoundry/cf-release.git
+fi
+
+pushd cf-release
+   git checkout "v$cf_version"
+   git clean -fdx
+  ./scripts/generate-cf-diego-certs
+  ./scripts/generate-blobstore-certs
+popd
 
 DIRECTOR_UUID='ffcb64af-5e97-44a7-80ee-0aafa6f1fc50' #changeme
 NET_ID='2c27151b-4a2b-4aa6-a9b4-be5f2b274ea7' #changeme

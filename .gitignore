@@ -1,2 +1,4 @@
+bin/
+cf-release/
 cf-deployment.yml
 cf-stub.yml
