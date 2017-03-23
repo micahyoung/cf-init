@@ -38,6 +38,8 @@ if [ "$1" == "generate-certs" ]; then
     ./scripts/generate-etcd-certs
     ./scripts/generate-uaa-certs
     ./scripts/generate-certs service-provider-certs uaa.service.cf.internal
+    ./scripts/generate-certs ha-proxy-certs '*.cf.young.io'
+    cat ha-proxy-certs/server.key ha-proxy-certs/server.crt > ha-proxy-certs/server-combined.pem
   popd
 fi
 
@@ -117,7 +119,7 @@ UAA_SERVER_CERT=$(base64 cf-release/uaa-certs/server.crt)
 UAA_SERVER_KEY=$(base64 cf-release/uaa-certs/server.key)
 SERVICE_PROVIDER_PRIVATE_KEY=$(base64 cf-release/service-provider-certs/server.key)
 SERVICE_PROVIDER_PRIVATE_CERT=$(base64 cf-release/service-provider-certs/server.crt)
-
+HA_PROXY_COMBINED_CERT=$(base64 cf-release/ha-proxy-certs/server-combined.pem)
 
 cat > cf-stub.yml <<EOF
 ---
@@ -317,13 +319,7 @@ jobs:
         - gateway
     properties:
       ha_proxy:
-        ssl_pem: |
-          -----BEGIN RSA PRIVATE KEY-----
-          RSA_PRIVATE_KEY
-          -----END RSA PRIVATE KEY-----
-          -----BEGIN CERTIFICATE-----
-          SSL_CERTIFICATE_SIGNED_BY_PRIVATE_KEY
-          -----END CERTIFICATE-----
+        ssl_pem: !!binary $HA_PROXY_COMBINED_CERT
   - name: api_z1
     templates:
       - name: consul_agent
