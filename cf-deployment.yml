@@ -198,7 +198,7 @@ jobs:
   networks:
   - name: cf1
     static_ips: []
-  persistent_disk: 102400
+  persistent_disk: 10240
   properties:
     consul:
       agent:
@@ -238,7 +238,7 @@ jobs:
   name: blobstore_z1
   networks:
   - name: cf1
-  persistent_disk: 102400
+  persistent_disk: 10240
   properties:
     consul:
       agent:
