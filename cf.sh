@@ -37,6 +37,7 @@ if [ "$1" == "generate-certs" ]; then
     ./scripts/generate-consul-certs
     ./scripts/generate-etcd-certs
     ./scripts/generate-uaa-certs
+    ./scripts/generate-certs service-provider-certs uaa.service.cf.internal
   popd
 fi
 
@@ -114,6 +115,9 @@ CC_SERVICE_DASHBOARDS_SECRET=secret
 UAA_CA_CERT=$(base64 cf-release/uaa-certs/server-ca.crt)
 UAA_SERVER_CERT=$(base64 cf-release/uaa-certs/server.crt)
 UAA_SERVER_KEY=$(base64 cf-release/uaa-certs/server.key)
+SERVICE_PROVIDER_PRIVATE_KEY=$(base64 cf-release/service-provider-certs/server.key)
+SERVICE_PROVIDER_PRIVATE_CERT=$(base64 cf-release/service-provider-certs/server.crt)
+
 
 cat > cf-stub.yml <<EOF
 ---
@@ -231,8 +235,8 @@ properties:
   login:
     protocol: http
     saml:
-      serviceProviderKey: SERVICE_PROVIDER_PRIVATE_KEY
-      serviceProviderCertificate: SERVICE_PROVIDER_PRIVATE_CERT
+      serviceProviderKey: !!binary $SERVICE_PROVIDER_PRIVATE_KEY
+      serviceProviderCertificate: !!binary $SERVICE_PROVIDER_PRIVATE_CERT
   nats:
     user: $NATS_USER
     password: $NATS_PASSWORD
