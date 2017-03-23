@@ -145,12 +145,12 @@ networks:
       - 10.0.0.2 - 10.0.0.100
       - 10.0.0.200 - 10.0.0.254
       dns:
-      - 10.0.0.2
+      - 172.18.161.1
       static:
       - 10.0.0.125 - 10.0.0.175
       cloud_properties:
         net_id: $NET_ID
-        security_groups: ["cf"]
+        security_groups: [cf]
   - name: cf2
     type: manual
     subnets: (( networks.cf1.subnets )) # cf2 unused by default with the OpenStack template

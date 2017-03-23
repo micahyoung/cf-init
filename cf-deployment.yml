@@ -1083,7 +1083,7 @@ networks:
       security_groups:
       - cf
     dns:
-    - 10.0.0.2
+    - 172.18.161.1
     gateway: 10.0.0.1
     range: 10.0.0.0/24
     reserved:
@@ -1099,7 +1099,7 @@ networks:
       security_groups:
       - cf
     dns:
-    - 10.0.0.2
+    - 172.18.161.1
     gateway: 10.0.0.1
     range: 10.0.0.0/24
     reserved:
