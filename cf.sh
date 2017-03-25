@@ -40,6 +40,9 @@ if [ "$1" == "generate-certs" ]; then
     ./scripts/generate-certs service-provider-certs uaa.service.cf.internal
     ./scripts/generate-certs ha-proxy-certs '*.cf.young.io'
     cat ha-proxy-certs/server.key ha-proxy-certs/server.crt > ha-proxy-certs/server-combined.pem
+    mkdir jwt-keys
+    openssl genrsa -out jwt-keys/privkey.pem 2048
+    openssl rsa -pubout -in jwt-keys/privkey.pem -out jwt-keys/pubkey.pem
   popd
 fi
 
@@ -120,6 +123,8 @@ UAA_SERVER_KEY=$(base64 cf-release/uaa-certs/server.key)
 SERVICE_PROVIDER_PRIVATE_KEY=$(base64 cf-release/service-provider-certs/server.key)
 SERVICE_PROVIDER_PRIVATE_CERT=$(base64 cf-release/service-provider-certs/server.crt)
 HA_PROXY_COMBINED_CERT=$(base64 cf-release/ha-proxy-certs/server-combined.pem)
+JWT_VERIFICATION_KEY=$(base64 cf-release/jwt-keys/pubkey.pem)
+JWT_SIGNING_KEY=$(base64 cf-release/jwt-keys/privkey.pem)
 
 cat > cf-stub.yml <<EOF
 ---
@@ -272,8 +277,8 @@ properties:
       cc-service-dashboards:
         secret: $CC_SERVICE_DASHBOARDS_SECRET
     jwt:
-      verification_key: JWT_VERIFICATION_KEY
-      signing_key: JWT_SIGNING_KEY
+      verification_key: !!binary $JWT_VERIFICATION_KEY
+      signing_key: !!binary $JWT_SIGNING_KEY
     scim:
       users:
       - name: admin
