@@ -454,6 +454,9 @@ jobs:
     instances: 0
   - name: clock_global
     instances: 0
+  - name: blobstore_z1
+    instances: 1
+    persistent_disk: 10240
 EOF
 
 pushd cf-release
