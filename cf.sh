@@ -83,8 +83,8 @@ if [ "$1" == "generate-certs" ]; then
 fi
 
 
-DIRECTOR_UUID='6a03f58f-91a2-4942-95b0-34abf99a3480' #changeme
-NET_ID='09172e34-690a-423b-a26b-5b95ab42cffc' #changeme
+DIRECTOR_UUID='81f19db4-ce1f-4cc6-8359-ffdf55d497ad' #changeme
+NET_ID='6db713e0-b17b-4bf8-ae44-80e02992a74d' #changeme
 ENVIRONMENT=cf
 FLOATING_IP=172.18.161.254
 SYSTEM_DOMAIN=system.cf.young.io
