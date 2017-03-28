@@ -1,9 +1,10 @@
 #!/bin/bash
 
-#proxy_ip="172.18.161.5"
-#export http_proxy="http://$proxy_ip:8123"
-#export https_proxy="http://$proxy_ip:8123"
-export PATH=`pwd`/bin:~/go/bin:$PATH
+proxy_ip="172.18.161.5"
+export http_proxy="http://$proxy_ip:8123"
+export https_proxy="http://$proxy_ip:8123"
+export GOPATH=~/.go
+export PATH=`pwd`/bin:$PATH:$GOPATH/bin
 cf_version=254
 uname=`uname | tr '[A-Z]' '[a-z]'`
 
