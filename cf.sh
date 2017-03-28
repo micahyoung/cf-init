@@ -166,6 +166,12 @@ cat > cf-stub.yml <<EOF
 ---
 director_uuid: $DIRECTOR_UUID
 
+releases:
+- name: cf
+  url: https://bosh.io/d/github.com/cloudfoundry/cf-release?v=254
+  sha1: 2b1b4de54927fb0b92c6ace83df353969b1fa69b
+  version: latest
+
 compilation:
   cloud_properties:
     instance_type: m1.small
