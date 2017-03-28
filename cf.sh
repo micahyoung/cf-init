@@ -7,6 +7,14 @@ export GOPATH=~/.go
 export PATH=`pwd`/bin:$PATH:$GOPATH/bin
 cf_version=254
 uname=`uname | tr '[A-Z]' '[a-z]'`
+case $uname in
+darwin*)
+  base64="base64"
+  ;;
+linux*)
+  base64="base64 -w0"
+  ;;
+esac
 
 if ! [ -d bin ]; then
   mkdir bin
