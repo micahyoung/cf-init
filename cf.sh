@@ -5,15 +5,25 @@
 #export https_proxy="http://$proxy_ip:8123"
 export PATH=`pwd`/bin:~/go/bin:$PATH
 cf_version=254
-consul_version=158
+uname=`uname | tr '[A-Z]' '[a-z]'`
 
 if ! [ -d bin ]; then
   mkdir bin
 fi
 
+if ! go version; then
+  case $uname in
+  darwin*)
+    brew install golang
+    ;;
+  linux*)
+    apt install golang
+    ;;
+  esac
+fi
+
 pushd bin
   if ! [ -f spiff ]; then
-    uname=`uname | tr '[A-Z]' '[a-z]'`
     curl -JL "https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.8/spiff_$(uname)_amd64.zip" > spiff.zip
 
     unzip spiff.zip
