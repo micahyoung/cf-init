@@ -108,8 +108,11 @@ pushd cf-release
   fi
 
   if ! [ -d ha-proxy-certs ]; then
-    ./scripts/generate-certs ha-proxy-certs '*.cf.young.io'
-    cat ha-proxy-certs/server.key ha-proxy-certs/server.crt > ha-proxy-certs/server-combined.pem
+    certstrap --depot-path ha-proxy-certs init --passphrase '' --common-name cert-authority
+    certstrap --depot-path ha-proxy-certs request-cert --passphrase '' --common-name cf.young.io --domain "*.*.cf.young.io,*.cf.young.io,cf.young.io"
+    certstrap --depot-path ha-proxy-certs sign cf.young.io --CA cert-authority
+
+    cat ha-proxy-certs/cf.young.io.key ha-proxy-certs/cf.young.io.crt > ha-proxy-certs/server-combined.pem
   fi
 
   if ! [ -d jwt-keys ]; then
