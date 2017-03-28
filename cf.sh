@@ -55,7 +55,6 @@ pushd bin
   fi
 popd
 
-#./bosh-cli -e bosh upload-release https://bosh.io/d/github.com/cloudfoundry/cf-release?v=$cf_version
 if ! [ -d cf-release ]; then
   git clone https://github.com/cloudfoundry/cf-release.git
 fi
@@ -168,9 +167,9 @@ director_uuid: $DIRECTOR_UUID
 
 releases:
 - name: cf
-  url: https://bosh.io/d/github.com/cloudfoundry/cf-release?v=254
+  url: https://bosh.io/d/github.com/cloudfoundry/cf-release?v=$cf_version
   sha1: 2b1b4de54927fb0b92c6ace83df353969b1fa69b
-  version: latest
+  version: $cf_version
 
 compilation:
   cloud_properties:
