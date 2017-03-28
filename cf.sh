@@ -24,6 +24,21 @@ if ! go version; then
 fi
 
 pushd bin
+  if ! [ -f cf ]; then
+    case $uname in
+    darwin*)
+      cli_url="https://cli.run.pivotal.io/stable?release=macosx64-binary&version=6.25.0&source=github-rel"
+      ;;
+    linux*)
+      cli_url="https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.25.0&source=github-rel"
+      ;;
+    esac
+
+    curl -L $cli_url > cf-cli.tgz
+    tar xf cf-cli.tgz cf
+    rm cf-cli.tgz
+  fi
+
   if ! [ -f spiff ]; then
     curl -JL "https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.8/spiff_$(uname)_amd64.zip" > spiff.zip
 
