@@ -1,4 +1,7 @@
 #!/bin/bash
+director_uuid=${1:?'Director UUID required'}
+net_id=${2:?'Network UUID required'}
+regenerate_certs=${3}
 
 proxy_ip="172.18.161.5"
 export http_proxy="http://$proxy_ip:8123"
@@ -59,27 +62,62 @@ if ! [ -d cf-release ]; then
   git clone https://github.com/cloudfoundry/cf-release.git
 fi
 
-if [ "$2" == "generate-certs" ]; then
-  pushd cf-release
-    git checkout "v$cf_version"
+pushd cf-release
+  git checkout "v$cf_version"
+  git submodule update --init src/consul-release
+
+  if ! [ -z $regenerate_certs ]; then
     git clean -fdx
-    git submodule update --init src/consul-release
+  fi
+
+
+  if ! [ -d cf-diego-certs ]; then
     ./scripts/generate-cf-diego-certs
+  fi
+
+  if ! [ -d blobstore-certs ]; then
     ./scripts/generate-blobstore-certs
+  fi
+
+  if ! [ -d loggregator-certs ]; then
     ./scripts/generate-loggregator-certs cf-diego-certs/cf-diego-ca.crt cf-diego-certs/cf-diego-ca.key
+  fi
+
+  if ! [ -d statsd-injector-certs ]; then
     ./scripts/generate-statsd-injector-certs loggregator-certs/loggregator-ca.crt loggregator-certs/loggregator-ca.key
+  fi
+
+  if ! [ -d hm9000-certs ]; then
     ./scripts/generate-hm9000-certs
+  fi
+
+  if ! [ -d consul-certs ]; then
     ./scripts/generate-consul-certs
+  fi
+
+  if ! [ -d etcd-certs ]; then
     ./scripts/generate-etcd-certs
+  fi
+
+  if ! [ -d uaa-certs ]; then
     ./scripts/generate-uaa-certs
+  fi
+
+  if ! [ -d service-provider-certs ]; then
     ./scripts/generate-certs service-provider-certs uaa.service.cf.internal
+  fi
+
+  if ! [ -d ha-proxy-certs ]; then
     ./scripts/generate-certs ha-proxy-certs '*.cf.young.io'
     cat ha-proxy-certs/server.key ha-proxy-certs/server.crt > ha-proxy-certs/server-combined.pem
+  fi
+
+  if ! [ -d jwt-keys ]; then
     mkdir jwt-keys
     openssl genrsa -out jwt-keys/privkey.pem 2048
     openssl rsa -pubout -in jwt-keys/privkey.pem -out jwt-keys/pubkey.pem
-  popd
-fi
+  fi
+popd
 
 
 DIRECTOR_UUID=${1:?'Director UUID required'} #changeme
