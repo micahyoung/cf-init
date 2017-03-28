@@ -59,7 +59,7 @@ if ! [ -d cf-release ]; then
   git clone https://github.com/cloudfoundry/cf-release.git
 fi
 
-if [ "$1" == "generate-certs" ]; then
+if [ "$2" == "generate-certs" ]; then
   pushd cf-release
     git checkout "v$cf_version"
     git clean -fdx
@@ -82,7 +82,7 @@ if [ "$1" == "generate-certs" ]; then
 fi
 
 
-DIRECTOR_UUID='81f19db4-ce1f-4cc6-8359-ffdf55d497ad' #changeme
+DIRECTOR_UUID=${1:?'Director UUID required'} #changeme
 NET_ID='6db713e0-b17b-4bf8-ae44-80e02992a74d' #changeme
 ENVIRONMENT=cf
 FLOATING_IP=172.18.161.254
