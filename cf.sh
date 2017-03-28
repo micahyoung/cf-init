@@ -13,7 +13,9 @@ fi
 
 pushd bin
   if ! [ -f spiff ]; then
-    curl -JL "https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.8/spiff_darwin_amd64.zip" > spiff.zip
+    uname=`uname | tr '[A-Z]' '[a-z]'`
+    curl -JL "https://github.com/cloudfoundry-incubator/spiff/releases/download/v1.0.8/spiff_$(uname)_amd64.zip" > spiff.zip
+
     unzip spiff.zip
     rm spiff.zip
   fi
