@@ -307,6 +307,7 @@ properties:
     jwt:
       verification_key: !!binary $JWT_VERIFICATION_KEY
       signing_key: !!binary $JWT_SIGNING_KEY
+    require_https: false
     scim:
       users:
       - name: admin

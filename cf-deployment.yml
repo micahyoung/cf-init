@@ -300,10 +300,6 @@ jobs:
   networks:
   - name: cf1
   properties:
-    env:
-      http_proxy: http://172.18.161.5:8123
-      https_proxy: http://172.18.161.5:8123
-      no_proxy: 127.0.0.1,localhost,172.18.161.6,172.18.161.5,bosh-director,10.0.0.3,172.18.161.252
     consul:
       agent:
         services:
