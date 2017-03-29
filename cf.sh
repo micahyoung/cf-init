@@ -123,8 +123,8 @@ pushd cf-release
 popd
 
 
-DIRECTOR_UUID=${1:?'Director UUID required'} #changeme
-NET_ID='6db713e0-b17b-4bf8-ae44-80e02992a74d' #changeme
+DIRECTOR_UUID=$director_uuid
+NET_ID=$net_id
 ENVIRONMENT=cf
 FLOATING_IP=172.18.161.254
 SYSTEM_DOMAIN=system.cf.young.io
