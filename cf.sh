@@ -29,7 +29,7 @@ if ! go version; then
     brew install golang
     ;;
   linux*)
-    apt install golang
+    apt install -y golang
     ;;
   esac
 fi
@@ -289,8 +289,8 @@ properties:
     agent_cert: !!binary $CONSUL_AGENT_CERT
     agent_key: !!binary $CONSUL_AGENT_KEY
   dea_next:
-    disk_mb: 2048
-    memory_mb: 1024
+    disk_mb: 4096
+    memory_mb: 4096
   etcd:
     require_ssl: true
     ca_cert: !!binary $ETCD_CA_CERT
